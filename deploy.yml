@@ -41,7 +41,7 @@ data:
           score:
             enabled:
               - name: metrics-scheduler-plugin
-                weight: 1000
+                weight: 1
             disabled:
               - name: NodePreferAvoidPods
 ---
