@@ -84,6 +84,9 @@ func (s *MetricsSchedulerPlugin) Score(ctx context.Context, state *framework.Cyc
 	log.Printf("node %s memory used %d, total %d, percentage %f\n", nodeName, usedMemory, totalMemory, MemoryUsedPercentage)
 	log.Printf("node %s cpu used %d, total %d, percentage %f\n", nodeName, usedCPU, totalCPU, CPUUsedPercentage)
 	score := ((1-MemoryUsedPercentage)*float64(MemoryWeight) + (1-CPUUsedPercentage)*float64(CPUWeight)) / float64(MemoryWeight+CPUWeight) * 100
+	if score <= 0 {
+		score = 1
+	}
 	log.Printf("node %s score %f intscore %d\n", nodeName, score, int64(score))
 	return int64(score), framework.NewStatus(framework.Success, "")
 }
