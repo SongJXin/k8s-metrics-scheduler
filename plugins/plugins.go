@@ -72,8 +72,8 @@ func (s *MetricsSchedulerPlugin) Score(ctx context.Context, state *framework.Cyc
 	}
 	nodeMetrics, err := metricsClient.MetricsV1beta1().NodeMetricses().Get(context.TODO(), nodeName, metav1.GetOptions{})
 	if err != nil {
-		log.Fatalf("Error getting node metrics %s: %s", nodeName, err.Error())
-		return 0, framework.NewStatus(framework.Success, "")
+		log.Printf("Error getting node metrics %s: %s", nodeName, err.Error())
+		return 1, framework.NewStatus(framework.Success, "")
 	}
 	totalMemory := node.Status.Allocatable.Memory().Value()
 	usedMemory := nodeMetrics.Usage.Memory().Value()
